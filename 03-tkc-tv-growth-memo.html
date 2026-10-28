@@ -1,0 +1,511 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>TKC TV Growth Memo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700;900&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a consulting memorandum — memo header block, bottom line up front, four evidence tiles, five ranked proposals as decision cards, a 90-day gate */
+:root{
+  --paper:#FFFFFF; --tint:#F4F6F9; --ink:#0F141B; --sub:#4B5562; --faint:#8790A0; --rule:#E2E6EC;
+  --accent:#1E3F94; --accent-soft:#E7ECF8; --key:#C4471A; --key-soft:#FBEDE6; --ok:#1F7A5A;
+  --night:#0B1426; --night-2:#13203A; --night-ink:#EEF2F8; --night-sub:#9FB0CC; --gold:#D9A441;
+  --serif:"Noto Serif KR",Georgia,serif; --sans:"Noto Sans KR",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0C1118; --tint:#131A24; --ink:#E9EDF3; --sub:#AEB8C6; --faint:#748094; --rule:#222C3A;
+  --accent:#8EA9F2; --accent-soft:#18233D; --key:#FF8A5B; --key-soft:#2A1A14; --ok:#5CC79C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0C1118; --tint:#131A24; --ink:#E9EDF3; --sub:#AEB8C6; --faint:#748094; --rule:#222C3A;
+  --accent:#8EA9F2; --accent-soft:#18233D; --key:#FF8A5B; --key-soft:#2A1A14; --ok:#5CC79C; color-scheme:dark}
+*{box-sizing:border-box}
+body{word-break:keep-all;overflow-wrap:break-word;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.72;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:28px}
+@media (max-width:560px){.wrap{padding-inline:18px}}
+h1,h2,h3{margin:0;font-family:var(--serif);text-wrap:balance;letter-spacing:-.015em}
+p{margin:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.num{font-variant-numeric:tabular-nums}
+
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--night) 94%,transparent);backdrop-filter:blur(12px);color:var(--night-ink)}
+.nav .wrap{display:flex;align-items:center;gap:16px;padding-block:12px}
+.logo{display:flex;align-items:center;gap:11px}
+.logo svg{width:32px;height:32px}
+.logo b{font-family:var(--mono);font-weight:500;font-size:12.5px;letter-spacing:.16em}
+.logo span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--night-sub)}
+.conf{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;border:1px solid rgba(217,164,65,.6);color:var(--gold);padding:3px 8px}
+@media (max-width:640px){.conf{display:none}}
+.langs{display:flex;gap:2px;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:3px;margin-left:auto}
+@media (min-width:641px){.langs{margin-left:10px}}
+.langs button{font:500 12.5px var(--sans);border:0;background:transparent;color:var(--night-sub);padding:5px 11px;border-radius:999px;cursor:pointer}
+.langs button[aria-pressed="true"]{background:var(--night-ink);color:var(--night)}
+
+/* memo header */
+.memo{background:var(--night);color:var(--night-ink)}
+.memo .wrap{padding-block:56px 48px}
+.memo .eyebrow{color:var(--gold)}
+.memo h1{font-size:clamp(30px,4.4vw,52px);line-height:1.22;font-weight:900;margin-top:16px;color:#fff;max-width:18em}
+.mh{display:grid;grid-template-columns:repeat(4,1fr);margin-top:36px;border-top:1px solid rgba(255,255,255,.14)}
+@media (max-width:760px){.mh{grid-template-columns:repeat(2,1fr)}}
+.mh div{padding:16px 16px 0 0;min-width:0}
+.mh dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--night-sub)}
+.mh dd{margin:4px 0 0;font-size:15px}
+
+section{padding-block:72px}
+@media (max-width:560px){section{padding-block:52px}}
+section.alt{background:var(--tint)}
+.sh{display:flex;align-items:baseline;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+.sh .no{font-family:var(--mono);font-size:13px;color:var(--key)}
+.sh h2{font-size:clamp(25px,3vw,34px);font-weight:900;line-height:1.3}
+
+/* BLUF */
+.bluf{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:1px solid var(--rule)}
+@media (max-width:820px){.bluf{grid-template-columns:1fr}}
+.bluf>div{padding:24px 24px 26px;border-right:1px solid var(--rule);min-width:0}
+.bluf>div:last-child{border-right:0}
+@media (max-width:820px){.bluf>div{border-right:0;border-bottom:1px solid var(--rule)}.bluf>div:last-child{border-bottom:0}}
+.bluf .k{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--accent)}
+.bluf p{margin-top:10px;font-size:16.5px;line-height:1.65}
+.bluf b{font-weight:700}
+
+/* evidence tiles */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media (max-width:900px){.tiles{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:460px){.tiles{grid-template-columns:1fr}}
+.tile{background:var(--paper);border-top:3px solid var(--ink);padding:20px 4px 4px;min-width:0}
+.tile .v{font-family:var(--serif);font-weight:900;font-size:clamp(36px,4vw,48px);line-height:1;color:var(--ink)}
+.tile .v small{font-size:.5em;font-weight:700;color:var(--sub);margin-left:4px}
+.tile .l{margin-top:12px;font-size:14.5px;font-weight:500}
+.tile .s{margin-top:8px;font-size:12px;color:var(--faint)}
+.tier{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;padding:2px 7px;border-radius:2px;margin-top:10px}
+.tier.v{background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--ok)}
+.tier.d{background:var(--accent-soft);color:var(--accent)}
+.tier.h{background:var(--key-soft);color:var(--key)}
+
+/* exhibit */
+.exrow{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:40px}
+.exrow>*{min-width:0}
+@media (max-width:820px){.exrow{grid-template-columns:1fr}}
+.exhibit{border-top:2px solid var(--ink);padding-top:14px}
+.exhibit .xl{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;color:var(--accent)}
+.exhibit h4{margin:6px 0 0;font-size:15.5px;font-weight:700;line-height:1.45}
+.exhibit .src{margin-top:14px;font-size:12px;color:var(--faint);border-top:1px solid var(--rule);padding-top:8px}
+svg.sl{width:100%;height:auto;display:block;margin-top:12px}
+svg.sl text{font-family:var(--mono);font-size:12px;fill:var(--sub)}
+svg.sl .lab{font-family:var(--sans);font-size:13px;fill:var(--ink);font-weight:500}
+.stack{display:flex;height:34px;margin-top:18px;overflow:hidden}
+.stack div{height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11.5px;color:#fff;min-width:0;overflow:hidden;white-space:nowrap}
+.skey{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:12.5px;color:var(--sub)}
+.skey i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
+
+/* proposals */
+.props{display:grid;gap:18px}
+.prop{display:grid;grid-template-columns:84px 1fr;background:var(--paper);border:1px solid var(--rule)}
+.prop>*{min-width:0}
+.prop .rank{background:var(--night);color:var(--gold);font-family:var(--serif);font-weight:900;font-size:40px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:22px;gap:6px}
+.prop .rank span{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--night-sub);font-weight:400}
+.prop .body{padding:24px 28px 26px}
+@media (max-width:620px){.prop{grid-template-columns:1fr}.prop .rank{flex-direction:row;padding:12px 18px;font-size:26px;justify-content:flex-start}.prop .body{padding:20px}}
+.prop h3{font-size:clamp(20px,2.2vw,24px);font-weight:900;line-height:1.4}
+.prop .why{margin-top:10px;color:var(--sub);font-size:15px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:18px;border-top:1px solid var(--rule)}
+@media (max-width:820px){.grid4{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:440px){.grid4{grid-template-columns:1fr}}
+.grid4 div{padding:12px 14px 0 0;min-width:0}
+.grid4 dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--faint);text-transform:uppercase}
+.grid4 dd{margin:4px 0 0;font-size:14px}
+.pill{display:inline-block;font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.pill.low{background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--ok)}
+
+
+.land{overflow-x:auto;border:1px solid var(--rule);background:var(--paper)}
+.land table{min-width:760px}
+.land td:first-child{font-family:var(--sans);font-size:14.5px;font-weight:700;color:var(--ink);white-space:normal}
+.land tr.us td{background:#F1F6FE}
+.land .chip{display:inline-block;font-family:var(--mono);font-size:11px;padding:2px 8px;border-radius:999px}
+.land .chip.old{background:#FCE9DF;color:#B4441B}.land .chip.new{background:#E3F4EE;color:#1F7A5A}.land .chip.none{background:#EEF1F5;color:#5B6B85}
+/* plan table */
+.tbl{overflow-x:auto;border:1px solid var(--rule);background:var(--paper)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14.5px}
+th,td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--faint);font-weight:500;text-transform:uppercase;background:var(--tint)}
+tr:last-child td{border-bottom:0}
+td:first-child{font-family:var(--mono);font-size:13px;color:var(--accent);white-space:nowrap}
+tr.gate td{background:var(--key-soft)}
+tr.gate td:first-child{color:var(--key)}
+
+/* fit + risk */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.two>*{min-width:0}
+@media (max-width:820px){.two{grid-template-columns:1fr}}
+.list{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.list li{padding:14px 0;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:150px 1fr;gap:14px;font-size:14.5px}
+.list li>*{min-width:0}
+@media (max-width:520px){.list li{grid-template-columns:1fr;gap:4px}}
+.list b{font-weight:700}
+.list span{color:var(--sub)}
+
+/* close */
+.close{background:var(--night);color:var(--night-ink)}
+.close .wrap{padding-block:64px;display:grid;grid-template-columns:1.2fr 1fr;gap:44px;align-items:center}
+.close .wrap>*{min-width:0}
+@media (max-width:820px){.close .wrap{grid-template-columns:1fr}}
+.close h2{font-size:clamp(26px,3.2vw,38px);font-weight:900;color:#fff;line-height:1.3}
+.close p{margin-top:14px;color:var(--night-sub)}
+.sig{border:1px solid rgba(255,255,255,.14);padding:22px 24px;display:grid;gap:6px}
+.sig .n{font-family:var(--serif);font-size:22px;font-weight:700;color:#fff}
+.sig .r{color:var(--night-sub);font-size:14px}
+.sig .m{font-family:var(--mono);font-size:13.5px;color:var(--gold);user-select:all;word-break:break-all;margin-top:8px}
+.notes{padding-block:28px 48px;color:var(--faint);font-size:12.5px}
+.notes ol{margin:10px 0 0;padding-left:18px;display:grid;gap:4px}
+.notes a{color:inherit}
+
+/* ===== FRESH LIGHT THEME (bright, international) ===== */
+:root{--sky:#EEF6FD;--sky-2:#E2F0FB;--cobalt:#1F5FD1;--ocean:#14A3A0;--coral:#E8743B;--navy:#0F2A55}
+.nav{background:rgba(255,255,255,.88);color:var(--navy);border-bottom:1px solid #DCE6F2}
+.nav .logo .wm span,.nav .logo span span{color:#5B6B85}
+.nav .links a{color:#3D4B63}
+.nav .links a:hover{color:var(--cobalt)}
+.nav .langs{border-color:#D3DEEC;background:#F4F8FC}
+.nav .langs button{color:#5B6B85}
+.nav .langs button[aria-pressed="true"]{background:var(--navy);color:#fff}
+.nav .conf{color:var(--coral);border-color:rgba(232,116,59,.5)}
+.ticker{background:var(--navy);color:#DCE7F7}
+.ticker .tk span b{color:#FFD58A}
+.hero{background:radial-gradient(900px 560px at 78% 42%,#FFFFFF 0%,rgba(255,255,255,0) 60%),linear-gradient(160deg,#F4FAFF 0%,#E3F1FC 55%,#D8EEF2 100%);color:var(--navy)}
+.hero .eyebrow{color:var(--coral)}
+.hero h1,.hero h1.name{color:var(--navy)}
+.hero h1.name small{color:#5B6B85}
+.hero h1 em,.hero .tagline{background:linear-gradient(90deg,#1F5FD1,#14A3A0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lede{color:#3D4B63}
+.creds{color:var(--navy);border-top-color:#CFE0F1}
+.creds li::before{background:var(--coral)}
+.btn.gold{background:var(--cobalt);color:#fff;box-shadow:0 8px 20px -10px rgba(31,95,209,.7)}
+.btn.line{border-color:#AFC4E0;color:var(--navy);background:rgba(255,255,255,.6)}
+.globe{background:radial-gradient(closest-side,rgba(255,255,255,.95),rgba(255,255,255,0) 74%)}
+.glabels span{color:var(--navy);text-shadow:0 0 4px #fff,0 0 8px #fff}
+.glabels span.hub{color:var(--coral)}
+.globe .legend,.lane{color:#5B6B85}
+.globe .legend i{background:var(--coral)}
+.lane i{background:var(--coral)}
+.cred,.facts{border-top-color:#CFE0F1}
+.cred b,.facts b{color:var(--navy)}
+.cred span,.facts span{color:#5B6B85}
+.glance{background:linear-gradient(115deg,#1F5FD1 0%,#2A7BE0 45%,#14A3A0 100%)}
+.glance .lb{color:#FFE2A8}
+.glance p{color:#E1ECFA}
+.foot{background:linear-gradient(180deg,#F6FAFE 0%,#EAF4FC 100%);color:var(--navy)}
+.foot .head h2{color:var(--navy)}.foot .head p{color:#3D4B63}.foot .eyebrow{color:var(--coral)}
+.mapbox{background:#FFFFFF;border-color:#D7E4F2;box-shadow:0 30px 60px -40px rgba(15,42,85,.35)}
+.mapbox .mlab{background:#fff;color:var(--navy);border-color:#C9D8EA;box-shadow:0 4px 10px -6px rgba(15,42,85,.4)}
+.cc{background:#FFFFFF;border-color:#DCE6F2;box-shadow:0 14px 30px -24px rgba(15,42,85,.35)}
+.cc .role{color:#5B6B85}.cc h3{color:var(--navy)}.cc ul{color:#3D4B63}
+.quote{background:linear-gradient(110deg,#1F5FD1 0%,#2B78DD 50%,#14A3A0 100%)}
+.quote .mk{color:#FFE2A8}
+.kpi{background:linear-gradient(180deg,#F3F8FD,#FFFFFF);color:var(--navy)}
+.kpi .head h2{color:var(--navy)}.kpi .head p{color:#3D4B63}.kpi .eyebrow{color:var(--coral)}
+.kblock{background:#FFFFFF;border:1px solid #DCE6F2;border-top:3px solid var(--bk);box-shadow:0 14px 30px -26px rgba(15,42,85,.4)}
+.kitem{border-top-color:#E6EDF6}.kitem h4{color:var(--navy)}.kitem code{color:#5B6B85}
+.kitem .st.ok{background:#E3F4EE;color:#1F7A5A}.kitem .st.need{background:#FBF1DE;color:#9A6B12}.kitem .st.gap{background:#FCE9DF;color:#B4441B}
+.krule div{border-color:#E8C98F;background:#FFFBF2;color:#3D4B63}.krule b{color:#9A6B12}
+.calc{background:linear-gradient(150deg,#0F2A55,#1F5FD1)}
+.contact,.close,.rlink{background:linear-gradient(120deg,#0F2A55 0%,#1F5FD1 60%,#14A3A0 100%)}
+footer{background:#0F2A55}
+.record{background:#fff}
+section.alt,.droom{background:#F4F8FC}
+.tabs button[aria-selected="true"]{border-bottom-color:var(--cobalt)}
+.memo{background:linear-gradient(120deg,#0F2A55 0%,#1F5FD1 70%,#14A3A0 100%)}
+.prop .rank{background:linear-gradient(180deg,#1F5FD1,#0F2A55)}
+
+/* ===== cover v2 ===== */
+.memo{background:linear-gradient(160deg,#F7FBFF 0%,#E8F2FC 60%,#DDEFF3 100%)!important;color:#0F2A55;border-bottom:1px solid #D7E4F2}
+.memo .wrap.cover{display:grid;grid-template-columns:1.25fr 1fr;gap:44px;padding-block:56px 56px;align-items:start}
+.memo .wrap.cover>*{min-width:0}
+@media (max-width:900px){.memo .wrap.cover{grid-template-columns:1fr;padding-block:40px}}
+.docline{display:flex;flex-wrap:wrap;gap:8px 16px;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:#5B6B85;padding-bottom:14px;border-bottom:2px solid #0F2A55;margin-bottom:22px}
+.docline .cf{margin-left:auto;color:#E8743B}
+.memo .eyebrow{color:#E8743B}
+.memo h1{color:#0F2A55!important;font-size:clamp(30px,3.9vw,48px)!important;line-height:1.25;margin-top:12px}
+.msub{margin-top:18px;font-size:17px;line-height:1.75;color:#3D4B63;max-width:34em}
+.memo .mh{border-top:1px solid #C9D8EA!important;margin-top:30px}
+.memo .mh dt{color:#5B6B85!important}
+.memo .mh dd{color:#0F2A55;font-weight:500}
+.ag{background:#FFFFFF;border:1px solid #D7E4F2;box-shadow:0 30px 60px -36px rgba(15,42,85,.45);padding:22px 24px 10px}
+.agh{display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:#1F5FD1;padding-bottom:12px;border-bottom:1px solid #E6EDF6}
+.agr{display:grid;grid-template-columns:132px 1fr;gap:14px;align-items:center;padding:16px 0;border-bottom:1px solid #E6EDF6}
+.agr:last-child{border-bottom:0}
+.agr b{font-family:"Noto Serif KR",Georgia,serif;font-size:34px;font-weight:900;color:#0F2A55;line-height:1;white-space:nowrap}
+.agr b small{font-size:.5em;color:#5B6B85}
+.agr span{font-size:13.5px;color:#3D4B63;line-height:1.5}
+.agr .mini{grid-column:1/-1;display:flex;height:8px;border-radius:999px;overflow:hidden;margin-top:-4px}
+.agr .mini i{display:block;height:100%}
+@media (max-width:480px){.agr{grid-template-columns:1fr;gap:6px}}
+</style>
+
+<header class="nav">
+  <div class="wrap">
+    <div class="logo">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <rect x="1" y="1" width="38" height="38" rx="8" fill="#0F2A55" stroke="#14A3A0" stroke-width="1.4"/>
+        <path d="M9 27 C 15 9, 25 9, 31 27" fill="none" stroke="#D9A441" stroke-width="2" stroke-linecap="round"/>
+        <path d="M9 27 C 15 18, 25 18, 31 27" fill="none" stroke="#9FB0CC" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="1.5 2.5"/>
+        <circle cx="9" cy="27" r="3" fill="#EEF2F8"/><circle cx="31" cy="27" r="3" fill="#D9A441"/>
+      </svg>
+      <div><b>SAZE GLOBAL TRADE</b><span>KIM HYE JU · RESEARCH</span></div>
+    </div>
+    <span class="conf">PREPARED FOR TKC TV</span>
+    <div class="langs" role="group" aria-label="Language"><button id="l-ko" data-l="ko">한국어</button><button id="l-en" data-l="en">EN</button></div>
+  </div>
+</header>
+
+<main>
+  <div class="memo">
+    <div class="wrap cover">
+      <div class="cl">
+        <div class="docline"><span>PROPOSAL MEMO</span><span>No. TKC-2026-10</span><span class="cf" data-i="m_conf"></span></div>
+        <div class="eyebrow" data-i="m_eb"></div>
+        <h1 data-i="m_h"></h1>
+        <p class="msub" data-i="m_sub"></p>
+        <dl class="mh">
+          <div><dt data-i="to_k"></dt><dd data-i="to_v"></dd></div>
+          <div><dt data-i="fr_k"></dt><dd data-i="fr_v"></dd></div>
+          <div><dt data-i="dt_k"></dt><dd data-i="dt_v"></dd></div>
+          <div><dt data-i="bs_k"></dt><dd data-i="bs_v"></dd></div>
+        </dl>
+      </div>
+      <aside class="ag">
+        <div class="agh"><span data-i="ag_k"></span><span>FLUSHING · QUEENS</span></div>
+        <div class="agr"><b>5.7×</b><span data-i="ag1"></span></div>
+        <div class="agr"><b>47%<small> : 9%</small></b><span data-i="ag2"></span><div class="mini"><i style="width:40%;background:#E8743B"></i><i style="width:36%;background:#AFC0D6"></i><i style="width:9%;background:#1F5FD1"></i><i style="width:7%;background:#F0A57E"></i><i style="width:8%;background:#E6EDF6"></i></div></div>
+        <div class="agr"><b>2019</b><span data-i="ag3"></span></div>
+        <div class="agr"><b>5 <small>/ 90</small></b><span data-i="ag4"></span></div>
+      </aside>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="sh"><span class="no">01</span><h2 data-i="b_h"></h2></div>
+      <div class="bluf">
+        <div><div class="k" data-i="b1k"></div><p data-i="b1"></p></div>
+        <div><div class="k" data-i="b2k"></div><p data-i="b2"></p></div>
+        <div><div class="k" data-i="b3k"></div><p data-i="b3"></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <div class="sh"><span class="no">02</span><h2 data-i="e_h"></h2></div>
+      <div class="tiles">
+        <div class="tile"><div class="v">5.7<small>×</small></div><div class="l" data-i="t1"></div><div class="s" data-i="t1s"></div><span class="tier v">VERIFIED</span></div>
+        <div class="tile"><div class="v">47<small>% : 9%</small></div><div class="l" data-i="t2"></div><div class="s" data-i="t2s"></div><span class="tier v">VERIFIED</span></div>
+        <div class="tile"><div class="v">2019</div><div class="l" data-i="t3"></div><div class="s" data-i="t3s"></div><span class="tier v">VERIFIED</span></div>
+        <div class="tile"><div class="v">37.5<small>%</small></div><div class="l" data-i="t4"></div><div class="s" data-i="t4s"></div><span class="tier d">DIRECTIONAL</span></div>
+      </div>
+      <div class="exrow">
+        <div class="exhibit">
+          <div class="xl">EXHIBIT 1</div>
+          <h4 data-i="x1h"></h4>
+          <svg class="sl" id="slope" viewBox="0 0 520 250" role="img" aria-label="NYC Chinese and Korean population, 2018 and 2023"></svg>
+          <div class="src" data-i="x1s"></div>
+        </div>
+        <div class="exhibit">
+          <div class="xl">EXHIBIT 2</div>
+          <h4 data-i="x2h"></h4>
+          <div class="stack" role="img" aria-label="Mandarin 40%, English 36%, Korean 9%, Cantonese 7%, other 8%">
+            <div style="width:40%;background:var(--key)">40%</div><div style="width:36%;background:var(--faint)">36%</div><div style="width:9%;background:var(--accent)">9%</div><div style="width:7%;background:color-mix(in srgb,var(--key) 60%,var(--paper))">7%</div><div style="width:8%;background:var(--rule)"></div>
+          </div>
+          <div class="skey"><span><i style="background:var(--key)"></i><span data-i="mk1"></span></span><span><i style="background:var(--faint)"></i><span data-i="mk2"></span></span><span><i style="background:var(--accent)"></i><span data-i="mk3"></span></span><span><i style="background:color-mix(in srgb,var(--key) 60%,var(--paper))"></i><span data-i="mk4"></span></span><span><i style="background:var(--rule)"></i><span data-i="mk5"></span></span></div>
+          <p style="margin-top:18px;font-size:14.5px;color:var(--sub)" data-i="x2n"></p>
+          <div class="src" data-i="x2s"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sh"><span class="no">02·B</span><h2 data-i="cl_h"></h2></div>
+      <p style="color:var(--sub);margin:-12px 0 24px;max-width:46em" data-i="cl_p"></p>
+      <div class="land"><table>
+        <thead><tr><th data-i="cl_t0"></th><th data-i="cl_t1"></th><th data-i="cl_t2"></th><th data-i="cl_t3"></th><th data-i="cl_t4"></th></tr></thead>
+        <tbody id="landrows"></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sh"><span class="no">03</span><h2 data-i="p_h"></h2></div>
+      <p style="color:var(--sub);margin:-12px 0 28px;max-width:44em" data-i="p_p"></p>
+      <div class="props" id="props"></div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <div class="sh"><span class="no">04</span><h2 data-i="g_h"></h2></div>
+      <div class="tbl"><table>
+        <thead><tr><th data-i="th1"></th><th data-i="th2"></th><th data-i="th3"></th></tr></thead>
+        <tbody id="plan"></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap two">
+      <div>
+        <div class="sh"><span class="no">05</span><h2 data-i="f_h"></h2></div>
+        <ul class="list" id="fit"></ul>
+      </div>
+      <div>
+        <div class="sh"><span class="no">06</span><h2 data-i="r_h"></h2></div>
+        <ul class="list" id="risk"></ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section class="close" style="padding:0">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow" style="color:var(--gold)" data-i="c_k"></div>
+      <h2 style="margin-top:12px" data-i="c_h"></h2>
+      <p data-i="c_p"></p>
+    </div>
+    <div class="sig">
+      <div class="n" data-i="sg_n"></div>
+      <div class="r" data-i="sg_r"></div>
+      <div class="m">sazegtcompany@gmail.com</div>
+    </div>
+  </div>
+</section>
+<div class="wrap notes">
+  <div class="eyebrow" data-i="n_k"></div>
+  <ol>
+    <li><a href="https://datausa.io/profile/geo/nyc-queens-community-district-7-flushing-murray-hill-whitestone-puma-ny" target="_blank" rel="noopener">U.S. Census Bureau ACS via Data USA — Queens CD7 PUMA</a></li>
+    <li><a href="https://www.nyc.gov/assets/sbs/downloads/pdf/neighborhoods/n360-cdna-flushing.pdf" target="_blank" rel="noopener">NYC Dept. of Small Business Services — Downtown Flushing Commercial District Needs Assessment</a></li>
+    <li><a href="https://www.aafederation.org/research/ethnicprofile-chinese-2025/" target="_blank" rel="noopener">Asian American Federation — Chinese in NYC: A Profile (2025)</a> · <a href="https://www.aafederation.org/research/ethnicprofile-korean-2025/" target="_blank" rel="noopener">Korean in NYC: A Profile (2025)</a></li>
+    <li data-i="n4"></li>
+  </ol>
+  <p style="margin-top:12px" data-i="n_note"></p>
+</div>
+
+<script>
+const T={
+ko:{
+m_eb:"TKC TV · 성장 과제 제안",m_conf:"경영진 검토용",m_sub:"플러싱 상권 데이터와 경쟁 매체 분석을 근거로, TKC TV가 방송 편성을 바꾸지 않고 광고 수익 기반을 넓힐 수 있는 실행 순서를 제안합니다.",ag_k:"한눈에 보기",ag1:"플러싱의 중국어 사용 가구는 한국어 사용 가구의 5.7배",ag2:"상권 상인의 사용 언어 — 중국어 대 한국어",ag3:"TKC 광고주용 미디어킷의 기준 연도",ag4:"즉시 실행 과제 5개 · 90일 후 결정 시점",
+m_h:"추가 편성 없이 지금 바로 시작할 수 있는 다섯 가지 성장 과제",
+to_k:"수신",to_v:"TKC TV 경영진",fr_k:"작성",fr_v:"김혜주 · 시장조사 분석가",dt_k:"일자",dt_v:"2026년 10월",bs_k:"근거",bs_v:"독립 시장조사 보고서 2편",
+b_h:"핵심 요약",
+b1k:"현황",b1:"TKC TV의 상권인 플러싱에서 <b>중국어 사용 가구는 한국어 사용 가구의 5.7배</b>이며, 상인 기준 격차는 그보다 큽니다. 한국어 단독 시장은 줄고, 인접 시장은 커지고 있습니다.",
+b2k:"과제",b2:"성장의 첫걸음은 새 방송 편성이 아니라 <b>측정과 영업 자료의 갱신</b>입니다. 광고주에게 제시하는 근거가 2019년 자료에 머물러 있습니다.",
+b3k:"제안",b3:"비용이 적고 바로 실행할 수 있는 순서로 <b>다섯 가지 과제</b>를 제안합니다. 90일 시점에 성과를 확인하고 확대·조정·중단을 결정합니다.",
+e_h:"판단 근거",
+t1:"플러싱 중국어 사용 가구 대 한국어 사용 가구",t1s:"87,939 대 15,492 · 퀸즈 CD7, ACS",
+t2:"다운타운 플러싱 상인 사용 언어 (중국어 대 한국어)",t2s:"371개 점포 · NYC SBS",
+t3:"TKC 광고주용 미디어킷 기준 연도",t3s:"경쟁 신문사는 2026년판 사용",
+t4:"TKC 생활정보 기사 비율 (경쟁 매체 50%)",t4s:"공개 기사 30건 코딩 · 소표본",
+x1h:"뉴욕시 중국계·한인 인구 변화, 2018 → 2023",x1s:"출처: Asian American Federation, Chinese in NYC / Korean in NYC (2025). 증감률은 발표 수치로 계산.",
+x2h:"다운타운 플러싱 상인 사용 언어 (371개 점포)",mk1:"만다린",mk2:"영어",mk3:"한국어",mk4:"광둥어",mk5:"기타·미기재",
+x2n:"TKC TV가 지금 광고주의 언어로 영업할 수 있는 대상은 상권 내 점포의 10곳 중 1곳이 채 되지 않습니다. 한편 상인의 33%는 성장에 가장 필요한 것으로 마케팅 지원을 꼽았습니다.",
+x2s:"출처: NYC Dept. of Small Business Services, Downtown Flushing Commercial District Needs Assessment.",
+p_h:"즉시 실행 가능한 다섯 가지 제안",p_p:"실행 속도와 비용을 기준으로 순서를 정했습니다. 모두 현재 방송 편성을 바꾸지 않고 시작할 수 있으며, 앞 단계의 결과가 다음 단계의 근거가 됩니다.",
+lb_why:"근거",lb_out:"산출물",lb_need:"TKC 제공 자료",lb_time:"소요 기간",lb_cost:"편성 영향",
+P:[
+{h:"2026 미디어킷 갱신 (한·영, 중문 요약판)",why:"현재 광고주에게 제시하는 근거가 2019년 자료입니다. 2026년 수치로 영업하는 경쟁 매체와의 견적 경쟁에서 가장 먼저 개선할 수 있는 부분입니다.",out:"검증된 최신 지표의 미디어킷, 영업용 1페이지 요약, 지표 정의서",need:"케이블·위성 가입자 현황, 디지털·SNS 지표, 광고 단가",time:"2~3주",cost:"없음"},
+{h:"플러싱 광고주 데이터베이스와 중국어 상인 설문",why:"상권 내 중국어 사용 상인이 47%이지만, 이들의 매체 이용과 광고 의향에 대한 직접 데이터가 없습니다. 만다린으로 직접 조사할 수 있습니다.",out:"6개 상업 축 점포 데이터베이스, 상인 60~100곳 설문 결과 보고서",need:"기존 광고주 목록, 영업 담당자 협조",time:"4~6주",cost:"없음"},
+{h:"중국어 디지털 파일럿 — 플러싱 로컬 뉴스",why:"방송 편성을 건드리지 않고 중국어권 수요를 시험할 수 있는 가장 저렴한 방법입니다. 이미 운영 중인 뉴스 자동화 체계를 활용합니다.",out:"샤오홍슈·위챗·유튜브용 중국어 카드뉴스와 숏폼, 8주 성과 보고서",need:"TKC 뉴스 사용 승인, 채널 계정 운영 권한",time:"8~12주",cost:"없음"},
+{h:"생활정보 해설 시리즈 (이민·주거·교통·건강·교육)",why:"영상으로 복잡한 절차를 설명하는 것은 라디오와 신문이 따라오기 어려운 TKC의 강점입니다. 이 분야의 기사 비율이 경쟁 매체보다 낮습니다.",out:"주 2~3편 카드뉴스·숏폼, 관련 업종 광고주용 스폰서 상품안",need:"편집 방향 협의, 기존 영상 자료",time:"착수 후 2주부터 정기 발행",cost:"낮음"},
+{h:"경영 KPI 대시보드와 월간 시장 리포트",why:"콘텐츠, 영상, 플랫폼, 광고 영업을 같은 기준으로 측정해야 무엇을 늘리고 줄일지 판단할 수 있습니다. 기준선 없이 목표를 세우지 않습니다.",out:"12개 KPI 정의서, 경영 대시보드, 월간 시장·경쟁 리포트",need:"채널 분석 자료, 광고 계약 현황",time:"구축 4주, 이후 매월",cost:"없음"}],
+g_h:"90일 실행 계획과 결정 시점",th1:"기간",th2:"내용",th3:"산출물",
+PL:[["1~15일","분석 권한 확보, 지표 목록 정리, 지표 정의서와 콘텐츠 분류 기준 수립","기준선 데이터북"],["16~30일","미디어킷 갱신, 경쟁 매체 동일 기간 100건 이상 코딩","2026 미디어킷 · 경쟁 벤치마크"],["31~45일","상인 데이터베이스 구축, 중국어 상인 설문 착수","광고주 데이터베이스"],["46~60일","중국어 디지털 파일럿 개시, 생활정보 시리즈 발행","파일럿 중간 보고"],["61~75일","경영 대시보드 가동, 업종별 광고주 인터뷰","대시보드 · 광고주 수요 지도"],["76~90일","결정 시점 — 측정된 수요가 있는 분야만 확대","경영 의사결정 메모"]],
+f_h:"이 과제에 필요한 역량",
+FIT:[["한국어 · 중국어","기존 한인 광고주와 신규 중국어권 상인을 같은 사람이 직접 상대할 수 있습니다."],["시장조사 방법론","표본 설계, 신뢰구간, 검정 등 결과를 과장하지 않는 분석 기준을 갖추고 있습니다."],["콘텐츠 자동화","뉴스 수집부터 카드뉴스·숏폼 제작까지의 자동화 체계를 이미 운영하고 있습니다."],["무역 · 영업 경험","미국·일본·중국·호주 무역 실무로 광고주의 사업 관점을 이해합니다."]],
+r_h:"위험 요인과 대응",
+RK:[["기존 한인 시청자 반발","방송이 아닌 디지털에서 먼저 시험해 기존 편성에 영향을 주지 않습니다."],["중국어권 매체 포화","전국 단위 매체는 포화일 수 있지만, 플러싱 로컬 뉴스와 지역 상인 광고는 다릅니다. 2단계 조사로 먼저 확인합니다."],["한국계 방송사에 대한 거부감","파일럿 광고주를 8~12곳으로 제한해 실패 비용을 한 분기로 묶습니다."],["가정 내 언어 ≠ 매체 언어","상인 설문으로 대리 지표를 직접 측정으로 바꿉니다."]],
+c_k:"다음 단계",c_h:"30분 검토 회의에서 우선순위와 범위를 정하면 바로 착수할 수 있습니다.",c_p:"과제별 범위와 일정은 회의에서 함께 조정합니다. 업무는 정식 계약 및 필요한 승인 절차를 마친 뒤 시작합니다.",
+sg_n:"김혜주 (Ellie Hye Ju Kim)",sg_r:"시장조사 분석가 · 한국어 · 中文 · 日本語 · English",
+n_k:"출처 및 참고",n4:"TKC TV Media Kit (2019); 김혜주, 「뉴욕 한인 미디어 시장 경쟁 분석」(2026.8), 「플러싱 이중언어 시장 기회 분석」(2026.9)",
+n_note:"본 메모의 수치는 모두 발표된 공개 자료이며, 비율은 작성자가 계산했습니다. 기사 30건 코딩 결과는 소표본에 기반한 방향성 지표입니다. 일정과 범위는 제안이며 확정 사항이 아닙니다.",
+sl_cn:"중국계",sl_kr:"한인",cl_h:"경쟁 구도",cl_p:"세 매체는 사업 모델이 달라 하나의 시청자 수로 비교할 수 없습니다. 아래는 각사가 공개한 검증 가능한 사실만 정리한 것입니다.",cl_t0:"매체",cl_t1:"모델",cl_t2:"검증된 강점",cl_t3:"광고주용 자료",cl_t4:"공개 지표",LR:[["TKC TV", "케이블·위성 방송 (1986~)", "미국 최초 한인 케이블 방송 · Spectrum·Optimum·DIRECTV 송출 · SBS 독점 방송사(2003~) · 자체 제작", "old", "2019 미디어킷", "Spectrum 140만 가입자 (한인 가구 약 20만) · DIRECTV 160만", "3 / 8"], ["Radio Korea NY", "라디오 (1997~)", "24시간 FM 87.7 · 94.7 HD3 · 웹·앱·유튜브 · 이민·법률·건강·부동산 중심 편성", "none", "공개 수치 없음", "정량 시청자 수치 미공개", "4 / 8"], ["뉴욕중앙일보", "전국 신문·디지털 (1974~)", "전국 한인 신문·디지털 네트워크 · 영문 사이트 · 유튜브·인스타그램·틱톡", "new", "2026 미디어킷", "뉴욕 발행 4.5만 · 전국 19만 · 앱 50만 다운로드 · 월 30만 PV · 유튜브 9만", "8 / 8"]]},
+
+en:{
+m_eb:"TKC TV · Growth initiatives",m_conf:"For leadership review",m_sub:"Based on Flushing trade-area data and a competitive media analysis, this memo sets out the order in which TKC TV can widen its advertising base without changing the broadcast schedule.",ag_k:"At a glance",ag1:"Chinese-speaking households outnumber Korean-speaking ones in Flushing",ag2:"Merchant language in the trade area — Chinese vs Korean",ag3:"Year of TKC's advertiser media kit",ag4:"Five initiatives · decision gate at day 90",
+m_h:"Five growth initiatives TKC TV can start now, without changing the broadcast schedule",
+to_k:"To",to_v:"TKC TV leadership",fr_k:"From",fr_v:"Hye Ju Kim · Market Research Analyst",dt_k:"Date",dt_v:"October 2026",bs_k:"Basis",bs_v:"Two independent market studies",
+b_h:"Bottom line",
+b1k:"Situation",b1:"In Flushing, TKC TV's own trade area, <b>Chinese-speaking households outnumber Korean-speaking ones 5.7 to 1</b>, and the merchant gap is wider. The Korean-only market is shrinking while the adjacent one grows.",
+b2k:"Problem",b2:"The first step to growth is not new programming. It is <b>current measurement and current sales evidence</b>. TKC's advertiser evidence still dates from 2019.",
+b3k:"Proposal",b3:"<b>Five initiatives</b>, ordered by cost and speed. At day 90, results decide what scales, changes or stops.",
+e_h:"The evidence",
+t1:"Chinese- vs Korean-speaking households, Flushing",t1s:"87,939 vs 15,492 · Queens CD7, ACS",
+t2:"Merchant language, Downtown Flushing (Chinese vs Korean)",t2s:"371 storefronts · NYC SBS",
+t3:"Year of TKC's advertiser media kit",t3s:"Print competitor sells on a 2026 kit",
+t4:"TKC service-journalism share (competitors 50%)",t4s:"30 coded public items · small sample",
+x1h:"NYC Chinese and Korean population, 2018 → 2023",x1s:"Source: Asian American Federation, Chinese in NYC / Korean in NYC (2025). Change computed from published counts.",
+x2h:"Language spoken by merchants, Downtown Flushing (371 storefronts)",mk1:"Mandarin",mk2:"English",mk3:"Korean",mk4:"Cantonese",mk5:"Other / not stated",
+x2n:"Today TKC TV can sell in the buyer's own language to fewer than one in ten storefronts in its trade area. Meanwhile 33% of merchants named marketing support as their single greatest need.",
+x2s:"Source: NYC Dept. of Small Business Services, Downtown Flushing Commercial District Needs Assessment.",
+p_h:"Five proposals, ready to start",p_p:"Ordered by speed and cost. None requires a change to the broadcast schedule, and each one produces the evidence the next one needs.",
+lb_why:"Why",lb_out:"Deliverable",lb_need:"TKC provides",lb_time:"Timeline",lb_cost:"Schedule impact",
+P:[
+{h:"2026 media-kit refresh (Korean/English, Chinese summary)",why:"Advertisers are currently pitched on 2019 evidence. Against a competitor quoting 2026 figures, this is the fastest gap to close.",out:"Media kit with validated current metrics, one-page sales sheet, metric definitions",need:"Cable and satellite subscriber data, digital and social metrics, rate card",time:"2–3 weeks",cost:"None"},
+{h:"Flushing advertiser database and Mandarin merchant survey",why:"47% of merchants in the trade area speak Chinese, yet there is no direct data on their media use or ad intent. I can survey them in Mandarin myself.",out:"Storefront database across six corridors; survey report from 60–100 merchants",need:"Current advertiser list, sales-team support",time:"4–6 weeks",cost:"None"},
+{h:"Chinese-language digital pilot — Flushing local news",why:"The cheapest way to test Chinese-language demand without touching the schedule, built on a news-automation workflow already in operation.",out:"Chinese card news and short video for Xiaohongshu, WeChat and YouTube; 8-week results report",need:"Approval to reuse TKC news, channel account access",time:"8–12 weeks",cost:"None"},
+{h:"Service-journalism explainer series (immigration, housing, transit, health, education)",why:"Explaining complex procedures on screen is something radio and print cannot match, yet TKC's share of this content trails both competitors.",out:"2–3 card-news and short-form pieces a week; sponsorship package for related advertisers",need:"Editorial alignment, existing video assets",time:"Regular output from week 2",cost:"Low"},
+{h:"Management KPI dashboard and monthly market report",why:"Content, video, platform and sales must be measured on the same terms before deciding what to grow or cut. No target is set without a baseline.",out:"12-KPI dictionary, management dashboard, monthly market and competitor report",need:"Channel analytics, ad-contract status",time:"4 weeks to build, then monthly",cost:"None"}],
+g_h:"90-day plan and decision gate",th1:"Days",th2:"Work",th3:"Deliverable",
+PL:[["1–15","Analytics access, metric inventory, metric dictionary and content taxonomy","Baseline data book"],["16–30","Media-kit refresh; identical-window coding of 100+ items per outlet","2026 media kit · competitive benchmark"],["31–45","Build merchant database; launch Mandarin merchant survey","Advertiser database"],["46–60","Start Chinese digital pilot; publish service-journalism series","Pilot interim report"],["61–75","Dashboard live; advertiser interviews by vertical","Dashboard · advertiser need map"],["76–90","Decision gate — scale only where demand is measured","Management decision memo"]],
+f_h:"Capabilities this work needs",
+FIT:[["Korean and Chinese","One person can work both the existing Korean advertisers and new Chinese-speaking merchants directly."],["Research method","Sample design, confidence intervals and testing that keep results from being overstated."],["Content automation","An automated workflow from news collection to card news and short video, already running."],["Trade and sales","Hands-on trade in the US, Japan, China and Australia; reads an advertiser's business, not only the audience."]],
+r_h:"Risks and responses",
+RK:[["Pushback from Korean viewers","Test on digital first, leaving the broadcast schedule untouched."],["Chinese media already saturated","Possibly at national level, unlikely for Flushing local news and merchant ads. Tested in the survey before any spend."],["Merchants wary of a Korean station","Pilot limited to 8–12 advertisers; failure costs one quarter."],["Home language ≠ media language","The merchant survey replaces the proxy with direct measurement."]],
+c_k:"Next step",c_h:"A 30-minute review to set priorities and scope is all it takes to begin.",c_p:"Scope and timing for each initiative will be agreed in that meeting. Work begins after a formal agreement and any required approvals.",
+sg_n:"Hye Ju Kim (Ellie)",sg_r:"Market Research Analyst · 한국어 · 中文 · 日本語 · English",
+n_k:"Sources and notes",n4:"TKC TV Media Kit (2019); Hye Ju Kim, Competitive Analysis of the New York Korean-American Media Market (Aug 2026) and Flushing Bilingual Market Opportunity Analysis (Sep 2026)",
+n_note:"All figures are published public data; ratios are the author's calculations. The 30-item coding result is a small-sample directional indicator. Timelines and scope are proposals, not commitments.",
+sl_cn:"Chinese",sl_kr:"Korean",cl_h:"Competitive landscape",cl_p:"The three outlets run different business models and cannot be compared on a single audience number. Only verifiable facts each has published are shown.",cl_t0:"Outlet",cl_t1:"Model",cl_t2:"Verified strengths",cl_t3:"Advertiser evidence",cl_t4:"Public metrics",LR:[["TKC TV", "Cable and satellite TV (since 1986)", "First Korean-American cable station in the US · Spectrum, Optimum, DIRECTV · exclusive SBS broadcaster since 2003 · in-house production", "old", "2019 media kit", "Spectrum 1.4M subscribers (~200K Korean-American HH) · DIRECTV 1.6M", "3 / 8"], ["Radio Korea NY", "Radio (since 1997)", "24-hour FM 87.7 and 94.7 HD3 · web, app, YouTube · immigration, legal, health and real-estate programming", "none", "No public figures", "No quantitative audience figure disclosed", "4 / 8"], ["The Korea Daily NY", "National print and digital (since 1974)", "National Korean-language newspaper and digital network · English site · YouTube, Instagram, TikTok", "new", "2026 media kit", "NY circulation 45K · national 190K · app 0.5M downloads · 300K monthly PV · YouTube 90K", "8 / 8"]]}
+};
+let cur="ko";
+function esc(s){return s}
+function render(){
+  const d=T[cur];
+  document.getElementById("props").innerHTML=d.P.map((p,i)=>`
+    <article class="prop"><div class="rank">${i+1}<span>${cur==="ko"?"순위":"RANK"}</span></div><div class="body">
+      <h3>${p.h}</h3><p class="why"><b style="color:var(--ink)">${d.lb_why}.</b> ${p.why}</p>
+      <dl class="grid4"><div><dt>${d.lb_out}</dt><dd>${p.out}</dd></div><div><dt>${d.lb_need}</dt><dd>${p.need}</dd></div><div><dt>${d.lb_time}</dt><dd><span class="pill">${p.time}</span></dd></div><div><dt>${d.lb_cost}</dt><dd><span class="pill low">${p.cost}</span></dd></div></dl>
+    </div></article>`).join("");
+  document.getElementById("plan").innerHTML=d.PL.map((r,i)=>`<tr${i===5?' class="gate"':''}><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("");
+  document.getElementById("fit").innerHTML=d.FIT.map(r=>`<li><b>${r[0]}</b><span>${r[1]}</span></li>`).join("");
+  document.getElementById("risk").innerHTML=d.RK.map(r=>`<li><b>${r[0]}</b><span>${r[1]}</span></li>`).join("");
+  drawSlope();
+  document.getElementById("landrows").innerHTML=d.LR.map((r,i)=>`<tr class="${i===0?"us":""}"><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td><span class="chip ${r[3]}">${r[4]}</span></td><td>${r[5]}<div style="margin-top:4px;font-family:var(--mono);font-size:11.5px;color:var(--faint)">${cur==="ko"?"검증 항목":"Verified fields"} ${r[6]}</div></td></tr>`).join("");
+}
+function drawSlope(){
+  /* indexed slope: 2018 = 100, shows opposite directions; labels carry real counts */
+  const s=document.getElementById("slope"), d=T[cur];
+  const y=v=>210-(v-94)*(170/12); /* index 94..106 */
+  const X1=120,X2=350;
+  const rows=[{n:d.sl_cn,a:600400,b:628200,col:"var(--key)"},{n:d.sl_kr,a:91358,b:87477,col:"var(--accent)"}];
+  let g="";
+  [94,97,100,103,106].forEach(v=>{g+=`<line x1="${X1-20}" y1="${y(v)}" x2="${X2+20}" y2="${y(v)}" stroke="var(--rule)"/><text x="${X1-28}" y="${y(v)+4}" text-anchor="end">${v}</text>`;});
+  g+=`<text x="${X1}" y="244" text-anchor="middle">2018</text><text x="${X2}" y="244" text-anchor="middle">2023</text>`;
+  rows.forEach(r=>{const i2=r.b/r.a*100, ch=((r.b/r.a-1)*100).toFixed(1);
+    g+=`<line x1="${X1}" y1="${y(100)}" x2="${X2}" y2="${y(i2)}" stroke="${r.col}" stroke-width="3"/>`;
+    g+=`<circle cx="${X1}" cy="${y(100)}" r="5" fill="${r.col}"/><circle cx="${X2}" cy="${y(i2)}" r="6" fill="${r.col}"/>`;
+    g+=`<text class="lab" x="${X2+14}" y="${y(i2)-4}">${r.n} ${ch>0?"+":""}${ch}%</text><text x="${X2+14}" y="${y(i2)+13}">${r.a.toLocaleString()} → ${r.b.toLocaleString()}</text>`;});
+  g+=`<text x="0" y="14">${cur==="ko"?"지수 (2018 = 100)":"Index (2018 = 100)"}</text>`;
+  s.innerHTML=g;
+}
+function setLang(l){
+  cur=T[l]?l:"ko"; document.documentElement.lang=cur; const d=T[cur];
+  document.querySelectorAll("[data-i]").forEach(el=>{const v=d[el.dataset.i]; if(typeof v==="string") el.innerHTML=v;});
+  document.querySelectorAll(".langs button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===cur?"true":"false"));
+  render(); try{localStorage.setItem("tkc-memo-lang",cur)}catch(e){}
+}
+document.querySelectorAll(".langs button").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.l)));
+let st="ko";try{st=localStorage.getItem("tkc-memo-lang")||"ko"}catch(e){}
+setLang(st);
+</script>
+</body></html>
